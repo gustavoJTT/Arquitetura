@@ -1,4 +1,4 @@
-.text #resposta errada
+.text
 
 input:
 	addi $2 $0 5
@@ -16,8 +16,9 @@ main:
 	div $12 $10
 	mflo $13
 	mfhi $14
-	div $14 $11
-	mfhi $15
+	mul $15 $14 $11
+	div $15 $10
+	mflo $16
 
 print:
 	add $4 $0 $13
@@ -28,7 +29,7 @@ print:
 	addi $2 $0 11
 	syscall
 	
-	add $4 $0 $15
+	add $4 $0 $16
 	addi $2 $0 1
 	syscall
 	
