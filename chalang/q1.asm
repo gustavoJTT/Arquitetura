@@ -52,10 +52,9 @@ l3:
 	syscall
 	jal espaco
 	jal espaco
-	jal espaco
 	
 	addi $13 $13 1	#incrementa c++
-	j l3	#reinicia o laço 3
+	j l3	#reinicia o laÃ§o 3
 	
 f_l3:
 	addi $4 $0 '\n'
@@ -71,10 +70,53 @@ f_l2:
 	addi $9 $9 3	#increenta a++
 	j l1	#volta pro anterior
 f_l1:
+	addi $9 $0 11
+	addi $8 $0 1
+	
+t10:
+	beq $8 $9 f_t10
+	
+	addi $21 $0 10
+	jal alinhar_
+	add $4 $0 $21
+	addi $2 $0 1
+	syscall
+	
+	addi $4 $0 '*'
+	addi $2 $0 11
+	syscall
+	
+	add $21 $0 $8
+	jal alinhar_
+	add $4 $0 $21
+	addi $2 $0 1
+	syscall
+	jal espaco
+	
+	addi $4 $0 '='
+	addi $2 $0 11
+	syscall
+	
+	jal espaco
+	
+	add $11 $0 10
+	mul $21 $11 $8
+	jal alinhar_
+	add $4 $0 $21
+	addi $2 $0 1
+	syscall
+	
+	addi $4 $0 '\n'
+	addi $2 $0 11
+	syscall
+	
+	addi $8 $8 1
+	j t10
+	
+f_t10:
 	addi $2 $0 10
 	syscall
-
-#======================================== funções =========================================
+#======================================== funÃ§Ãµes =========================================
 
 espaco:
 	addi $4 $0 ' '
