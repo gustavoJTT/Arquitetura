@@ -12,4 +12,5 @@ input:
 	add $10 $0 $2	#ano
 	
 main:
-	
+	addi $25 $0 4
+	div $10 
