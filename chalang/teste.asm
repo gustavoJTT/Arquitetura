@@ -19,9 +19,7 @@ l3:
 	beq $13 $12 f_l3
 	
 	add $20 $9 $13
-	add $21 $0 $20
-	
-	add $4 $0 $21
+	add $4 $0 $20
 	addi $2 $0 1
 	syscall
 	
@@ -29,27 +27,25 @@ l3:
 	addi $2 $0 11
 	syscall
 	
-	add $21 $0 $11
-	
-	add $4 $0 $21
+	add $4 $0 $11
 	addi $2 $0 1
 	syscall
 	
+	add $21 $0 $11
 	jal alinhar_
 	
 	addi $4 $0 '='
 	addi $2 $0 11
 	syscall
-	
 	jal espaco
 	
-	mul $20 $20 $11
-	add $21 $0 $20
-	
+	mul $21 $20 $11
 	jal alinhar_
+	
 	add $4 $0 $21
 	addi $2 $0 1
 	syscall
+	jal espaco
 	jal espaco
 	jal espaco
 	jal espaco
@@ -70,10 +66,48 @@ f_l2:
 	syscall
 	addi $9 $9 3	#increenta a++
 	j l1	#volta pro anterior
+	
 f_l1:
+	addi $8 $0 11
+	addi $9 $0 1
+	addi $10 $0 10
+	
+t10:
+	beq $8 $9 f_t10
+	
+	addi $4 $0 10
+	addi $2 $0 1
+	syscall
+	
+	addi $4 $0 '*'
+	addi $2 $0 11
+	syscall
+	
+	add $4 $0 $9
+	addi $2 $0 1
+	syscall
+	
+	jal espaco
+	addi $4 $0 '='
+	addi $2 $0 11
+	syscall
+	jal espaco
+	
+	mul $20 $10 $9
+	add $4 $0 $20
+	addi $2 $0 1
+	syscall
+	
+	addi $4 $0 '\n'
+	addi $2 $0 11
+	syscall
+	
+	addi $9 $9 1
+	j t10
+	
+f_t10:
 	addi $2 $0 10
 	syscall
-
 #======================================== funções =========================================
 
 espaco:
@@ -85,11 +119,5 @@ espaco:
 alinhar_:
 	div $21 $8
 	mflo $22
-	beq $22 $0 alinhar_s
-	jr $31
-	
-alinhar_s:
-	addi $4 $0 ' '
-	addi $2 $0 11
-	syscall
+	beq $22 $0 espaco
 	jr $31
