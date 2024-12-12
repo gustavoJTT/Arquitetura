@@ -5,19 +5,20 @@ main:
 	lui $9 0x1001
 	ori $10 $0 0xffffff
 	
-	addi $25 $0 8196
+	#addi $25 $0 8196
 	
-fundo:
-	beq $25 $0 borda_p
+#fundo:
+	#beq $25 $0 borda_p
 	
-	sw $10 0($8)
+	#sw $10 0($8)
 	
-	addi $8 $8 4
-	addi $25 $25 -1
-	j fundo
+	#addi $8 $8 4
+	#addi $25 $25 -1
+	#j fundo
 	
 borda_p:
 	lui $8 0x1001
+	lui $11 0x1001
 	ori $10 $0 0xff00f0
 	
 	addi $25 $0 128
@@ -36,10 +37,10 @@ borda:
 	
 	j borda
 	
-npc_p:
-	lui $8 0x1001
+#npc_p:
+	#lui $8 0x1001
 	
-	addi $25 $0 18
+	#addi $25 $0 18
 	
 	
 fim:

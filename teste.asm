@@ -1,100 +1,67 @@
 .text
+
+#Fazer uma moldura na tela 16x16
 main:
-	addi $8 $0 1	# i
-	addi $9 $0 10
-laco1:
-	beq $8 $9 fim_laco1
+	lui $8 0x1001
+	ori $9 $0 0xff00 #cor
+	addi $20 $0 32 #contador ites acesos
 	
-	addi $10 $0 1	# j
-	addi $11 $0 11
-laco2:
-	beq $10 $11 fim_laco2
-
-	addi $12 $0 0	# k
-	addi $13 $0 3
-laco3:
-	beq $12 $13 fim_laco3
+topo: #linha de cima
+	beq $20 $0 fim_t
 	
-	addi $25 $0 10
+	sw $9 0($8)#salva na pulha o endereço $9
+	addi $8 $8 4 #salta para a instrução seguinte da pilha
+	addi $20 $20 -1	#decrementa o contador
+	j topo
 	
-	add $20 $8 $12
-	div $20 $25
-	mflo $24
-	mfhi $23
+fim_t:	
+	lui $8 0x1001 #endereço inicial
 	
-	add $4 $24 $0
-	addi $2 $0 1
-	syscall
+	addi $10 $0 128	#para dar tipo uma quebra de linha na tela
+	mul $10 $10 15	#vai "quebrando a linha" até o inicio da ultima linha
+	add $8 $8 $10		#guarda o endereço no $8
 	
-	add $4 $23 $0
-	addi $2 $0 1
-	syscall
+	ori $9 $0 0xff00	#cor
+	addi $20 $0 32		#contador
 	
-	addi $4 $0 '*'
-	addi $2 $0 11
-	syscall
+baixo: #linha de baixo(funciona igual a do topo)
+	beq $20 $0 fim_b
 	
-	div $10 $25
-	mflo $24
-	mfhi $23
+	sw $9 0($8)
+	addi $8 $8 4
+	addi $20 $20 -1
+	j baixo
 	
-	add $4 $24 $0
-	addi $2 $0 1
-	syscall
+fim_b:
+	lui $8 0x1001 #endereço inicial
 	
-	add $4 $23 $0
-	addi $2 $0 1
-	syscall
+	ori $9 $0 0xff00 #cor
+	addi $20 $0 16 #contador da coluna
 	
-	addi $4 $0 '='
-	addi $2 $0 11
-	syscall
+esquerda: #coluna da esquerda
+	beq $20 $0 fim_e
 	
-	mul $20 $20 $10
-	div $20 $25
-	mflo $24
-	mfhi $23
+	sw $9 0($8) #colori o endereço
+	addi $8 $8 128 #"quebra a linha"
+	addi $20 $20 -1 #decrementa do contador
+	j esquerda
 	
-	add $4 $24 $0
-	addi $2 $0 1
-	syscall
+fim_e:
+	lui $8 0x1001 #endereço inicial
 	
-	add $4 $23 $0
-	addi $2 $0 1
-	syscall
+	addi $10 $0 124 #para chegar ao ultimo pixel da linha
+	add $8 $8 $10		#coloca o valor do ultimo pixel no endereço
+	ori $9 $0 0xff00 #cor
+	addi $20 $0 16	# contador
 	
-	addi $4 $0 ' '
-	addi $2 $0 11
-	syscall
+direita:	#coluna da direita(funciona igual a da esquerda)
+	beq $20 $0 fim_d
 	
-	addi $4 $0 ' '
-	addi $2 $0 11
-	syscall
+	sw $9 0($8)
+	addi $8 $8 128
+	addi $20 $20 -1
+	j esquerda
 	
-	addi $4 $0 ' '
-	addi $2 $0 11
-	syscall
-	
-	addi $12 $12 1
-	j laco3
-	
-fim_laco3:
-
-	addi $4 $0 '\n'
-	addi $2 $0 11
-	syscall
-
-	addi $10 $10 1
-	j laco2
-	
-fim_laco2:
-
-	addi $4 $0 '\n'
-	addi $2 $0 11
-	syscall
-			
-	addi $8 $8 3
-	j laco1
-fim_laco1:
+fim_d:
 	addi $2 $0 10
 	syscall
