@@ -9,7 +9,7 @@ main:
 	
 	#addi $25 $0 8192 #mÃ¡ximo da tela
 	
-	addi $25 $0 4096
+	addi $25 $0 3328
 	
 ceu:
 	beq $25 $0 mar_prep
@@ -23,7 +23,7 @@ ceu:
 
 
 mar_prep:
-	addi $25 $0 2816
+	addi $25 $0 2304
 	
 mar:
 	beq $25 $0 solo_prep
@@ -38,10 +38,10 @@ mar:
 
 
 solo_prep:
-	addi $25 $0 1536
+	addi $25 $0 2560
 	add $13 $0 $8
 	
-	addi $9 $9 8	#pular 2 para ficar 2 claros 2 escuros
+	addi $13 $13 8	#pular 2 para ficar 2 claros 2 escuros
 	addi $24 $0 2 #contador padrÃ£o solo
 	
 solo:
@@ -56,7 +56,6 @@ solo:
 	jal padrao_solo
 	addi $25 $25 -1
 	j solo
-		
 		
 		
 fim:
